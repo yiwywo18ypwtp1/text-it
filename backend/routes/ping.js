@@ -4,12 +4,14 @@ const prisma = new PrismaClient();
 
 router.get('/ping-db', async (req, res) => {
    try {
+      console.log('DB_URL:', process.env.DATABASE_URL);
       await prisma.user.findFirst();
-      res.status(200).json({ message: 'DB is awake' });
-   } catch (err) {
-      console.error('Ping DB error:', err);
+      res.send('DB is awake!');
+   } catch (e) {
+      console.error('Ping DB error:', e);
       res.status(500).json({ error: 'Failed to connect to DB' });
    }
 });
+
 
 module.exports = router;
