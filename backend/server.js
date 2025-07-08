@@ -24,7 +24,9 @@ app.use(express.json());
 const userRoutes = require('./routes/users.routes');
 const uploadRoutes = require('./routes/upload.routes');
 const paymentRoutes = require('./routes/payment.routes');
+const pingRoutes = require('./routes/ping');
 
+app.use('/api', pingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/payment', paymentRoutes);

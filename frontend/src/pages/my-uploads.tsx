@@ -24,6 +24,7 @@ const UploadsPage = () => {
 
       setLoading(true);
       axios.get('https://text-it-8kzf.onrender.com/api/upload/my', {
+      // axios.get('http://localhost:4000/api/upload/my', {
          headers: {'x-clerk-user-id': user.id}
       })
          .then(res => setUploads(res.data))
