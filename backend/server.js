@@ -6,7 +6,12 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-   origin: 'text-it-hu9a.vercel.app',
+   origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://text-it-hu9a.vercel.app',
+      'https://text-it-hu9a.vercel.app/'
+   ],
    methods: ['GET', 'POST'],
    allowedHeaders: ['Content-Type', 'x-clerk-user-id'],
 }));

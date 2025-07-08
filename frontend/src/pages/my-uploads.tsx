@@ -23,7 +23,7 @@ const UploadsPage = () => {
       if (!user) return;
 
       setLoading(true);
-      axios.get('http://localhost:5000/api/upload/my', {
+      axios.get('https://text-it-hu9a.vercel.app/api/upload/my', {
          headers: {'x-clerk-user-id': user.id}
       })
          .then(res => setUploads(res.data))
