@@ -81,16 +81,9 @@ const UploadFile = () => {
          const formData = new FormData();
          formData.append('audio', file);
 
-         const res = await axios.post('http://localhost:5000/api/upload', formData, {
-            headers: {
-               'Content-Type': 'multipart/form-data', // хедери ми передаєм, щоб отрмати клерковський айді авторизованого юхера
-               'x-clerk-user-id': user.id,
-            },
-         });
-
          router.push('/my-uploads')
       } catch (err) {
-         console.error(err);
+         console.error('Upload error:', err.response?.data || err.message || err);
          setErrorMessage('Upload failed.');
       } finally {
          setLoading(false);
