@@ -4,33 +4,11 @@ import {useEffect, useState} from "react";
 import {SignedIn, SignedOut, SignInButton, UserButton} from '@clerk/nextjs';
 import {useRouter} from 'next/navigation'
 import {useUser} from '@clerk/nextjs'
-import axios from "axios";
 
 
 const Header = () => {
-   const user = useUser();
    const router = useRouter();
-   const [isPro, setIsPro] = useState<boolean>();
 
-   useEffect(() => {
-      const fetchUser = async () => {
-         if (!user?.id) return;
-
-         try {
-            const res = await axios.get('http://localhost:5000/api/users/me', {
-               headers: {
-                  'x-clerk-user-id': user.id,
-               },
-            });
-
-            setIsPro(res.data.isPro);
-         } catch (err) {
-            console.error('Failed to fetch user status:', err);
-         }
-      };
-
-      fetchUser();
-   }, [user?.id]);
 
    return (
       <div
