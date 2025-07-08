@@ -2,6 +2,7 @@ const { PrismaClient } = require('../generated/prisma');
 const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
+const clerkApiKey = process.env.CLERK_API_KEY;
 
 
 const prisma = new PrismaClient();
@@ -54,13 +55,39 @@ exports.uploadFile = async (req, res) => {
    }
 };
 
+async function getClerkUserData(clerkId) {
+   const res = await fetch(`https://api.clerk.com/v1/users/${clerkId}`, {
+      headers: {
+         Authorization: `Bearer ${clerkApiKey}`,
+         'Content-Type': 'application/json'
+      }
+   });
+
+   if (!res.ok) {
+      throw new Error(`Failed to fetch Clerk user data: ${res.statusText}`);
+   }
+
+   const data = await res.json();
+   return data;
+}
+
 exports.getMyUploads = async (req, res) => {
    try {
       const clerkId = req.headers['x-clerk-user-id'];
       if (!clerkId) return res.status(400).json({ error: 'Missing Clerk User ID' });
 
-      const user = await prisma.user.findUnique({ where: { clerkId } });
-      if (!user) return res.status(404).json({ error: 'User not found' });
+      let user = await prisma.user.findUnique({ where: { clerkId } });
+
+      if (!user) {
+         const clerkUser = await getClerkUserData(clerkId, clerkApiKey);
+         // console.log('clerkUser:', clerkUser);
+         user = await prisma.user.create({
+            data: {
+               clerkId,
+               email: clerkUser.email_addresses[0].email_address,
+            }
+         });
+      }
 
       const uploads = await prisma.upload.findMany({
          where: { userId: user.id },

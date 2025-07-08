@@ -64,8 +64,6 @@ const UploadFile = () => {
       if (!file) {
          setErrorMessage('Please select an audio file.');
          return;
-      } else {
-         setErrorMessage(null);
       }
 
       if (!user?.id) {
@@ -73,16 +71,23 @@ const UploadFile = () => {
          return;
       }
 
-
-
       try {
          setLoading(true);
 
          const formData = new FormData();
          formData.append('audio', file);
 
-         router.push('/my-uploads')
+         const res = await axios.post('https://text-it-8kzf.onrender.com/api/upload', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data',
+               'x-clerk-user-id': user.id,
+            },
+         });
+
+         console.log('Upload response:', res.data);
+         router.push('/my-uploads');
       } catch (err) {
+         console.error('Upload failed:', err);
          setErrorMessage('Upload failed.');
       } finally {
          setLoading(false);
