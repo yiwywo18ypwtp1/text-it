@@ -83,7 +83,6 @@ const UploadFile = () => {
 
          router.push('/my-uploads')
       } catch (err) {
-         console.error('Upload error:', err.response?.data || err.message || err);
          setErrorMessage('Upload failed.');
       } finally {
          setLoading(false);
