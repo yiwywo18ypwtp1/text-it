@@ -39,6 +39,10 @@ const UploadFile = () => {
    }, [user]);
 
    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!user) {
+         return;
+      }
+
       if (!canUpload) {
          const res = await axios.post('http://localhost:5000/api/payment/create-checkout-session', {
             clerkId: user.id,
