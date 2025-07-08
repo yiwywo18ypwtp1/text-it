@@ -20,7 +20,7 @@ const UploadFile = () => {
          if (!user?.id) return;
 
          try {
-            const res = await axios.get(`https://text-it-hu9a.vercel.app/api/users/me`, {
+            const res = await axios.get(`https://text-it-8kzf.onrender.com/api/users/me`, {
                headers: {
                   'x-clerk-user-id': user.id,
                },
@@ -44,7 +44,7 @@ const UploadFile = () => {
       }
 
       if (!canUpload) {
-         const res = await axios.post('https://text-it-hu9a.vercel.app/api/payment/create-checkout-session', {
+         const res = await axios.post('https://text-it-8kzf.onrender.com/api/payment/create-checkout-session', {
             clerkId: user.id,
          });
          window.location.href = res.data.url;
