@@ -1,12 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
-console.log('DATABASE_URL:', process.env.DATABASE_URL);
 const prisma = new PrismaClient();
 
 
 exports.signUp = async (req, res) => {
    try {
-      // console.log('SIGNUP BODY:', req.body);
-
       const clerkId = req.body.data?.id;
       const email = req.body.data?.email_addresses?.[0]?.email_address;
 
@@ -18,7 +15,10 @@ exports.signUp = async (req, res) => {
       if (existingUser) return res.status(200).json(existingUser);
 
       const user = await prisma.user.create({
-         data: { clerkId, email },
+         data: {
+            clerkId,
+            email,
+         }
       });
 
       res.status(201).json(user);

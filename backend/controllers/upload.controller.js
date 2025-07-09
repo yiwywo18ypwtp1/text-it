@@ -2,10 +2,9 @@ const { PrismaClient } = require('@prisma/client');
 const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
-const clerkApiKey = process.env.CLERK_API_KEY;
-
-
+import { getClerkUserData } from '../utils/clerk';
 const prisma = new PrismaClient();
+
 
 const openai = new OpenAI({
    apiKey: process.env.OPENAI_API_KEY,
@@ -54,22 +53,6 @@ exports.uploadFile = async (req, res) => {
       res.status(500).json({ error: 'internal server error' });
    }
 };
-
-async function getClerkUserData(clerkId) {
-   const res = await fetch(`https://api.clerk.com/v1/users/${clerkId}`, {
-      headers: {
-         Authorization: `Bearer ${clerkApiKey}`,
-         'Content-Type': 'application/json'
-      }
-   });
-
-   if (!res.ok) {
-      throw new Error(`Failed to fetch Clerk user data: ${res.statusText}`);
-   }
-
-   const data = await res.json();
-   return data;
-}
 
 exports.getMyUploads = async (req, res) => {
    try {

@@ -28,8 +28,8 @@ exports.createCheckoutSession = async (req, res) => {
                quantity: 1,
             },
          ],
-         success_url: `http://localhost:3000/payment-success`,
-         cancel_url: `http://localhost:3000/`,
+         success_url: `https://text-it-8kzf.onrender.com/payment-success`,
+         cancel_url: `https://text-it-8kzf.onrender.com/`,
          metadata: {
             userId: user.id.toString(),
          },
