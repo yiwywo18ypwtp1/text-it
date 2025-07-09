@@ -28,8 +28,8 @@ exports.createCheckoutSession = async (req, res) => {
                quantity: 1,
             },
          ],
-         success_url: `https://text-it-8kzf.onrender.com/payment-success`,
-         cancel_url: `https://text-it-8kzf.onrender.com/`,
+         success_url: `https://text-it-hu9a.vercel.app/payment-success`,
+         cancel_url: `https://text-it-hu9a.vercel.app/`,
          metadata: {
             userId: user.id.toString(),
          },
