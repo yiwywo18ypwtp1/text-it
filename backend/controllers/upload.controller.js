@@ -2,6 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
+const clerkApiKey = process.env.CLERK_API_KEY;
 
 const prisma = new PrismaClient();
 
