@@ -16,20 +16,21 @@ app.use(cors({
    allowedHeaders: ['Content-Type', 'x-clerk-user-id'],
 }));
 
-const paymentRoutes = require('./routes/payment.routes');
-app.use('/api/payment', paymentRoutes);
-
 const webhookRoutes = require('./routes/webhook.routes');
-app.use('/api/webhook', webhookRoutes);
 
+
+app.use('/api/webhook', webhookRoutes);
 app.use(express.json());
+
 const userRoutes = require('./routes/users.routes');
 const uploadRoutes = require('./routes/upload.routes');
+const paymentRoutes = require('./routes/payment.routes');
 
 const pingRoutes = require('./routes/ping');
 app.use('/api', pingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/payment', paymentRoutes);
 
 app.listen(PORT, () => {
    console.log(`Server running at http://localhost:${PORT}`);
