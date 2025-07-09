@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const { OpenAI } = require('openai');
 const fs = require('fs');
 const path = require('path');
-import { getClerkUserData } from '../utils/clerk';
+const { getClerkUserData } = require('../utils/clerk');
 const prisma = new PrismaClient();
 
 
